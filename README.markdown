@@ -19,7 +19,6 @@ Usage
   $ touch .gitexternals
   
 2. In the file, add a name for the local folder, and the URL to the SVN repository.
-  # Git externals
   symfony = http://svn.symfony-project.com/branches/1.4
   Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
   
