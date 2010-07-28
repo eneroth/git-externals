@@ -19,12 +19,12 @@ Usage
   $ touch .gitexternals
   
 2. In the file, add a name for the local folder, and the URL to the SVN repository.
-  symfony = http://svn.symfony-project.com/branches/1.4
-  Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
+	symfony = http://svn.symfony-project.com/branches/1.4
+	Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
   
 3. Repeat step 2 for any folders in your project.
 4. From the main project folder, run the script.
-  $ python3 git-externals.py
+	$ python3 git-externals.py
   
 Any subsequent execution of the script will update all repositories. If you wish to update only specific repositories, give their local folder names as parameters to the script.
-  $ python3 git-externals.py symfony Zend
+	$ python3 git-externals.py symfony Zend
