@@ -12,7 +12,7 @@ The first time the script is run, the repositories will be checked out. Any subs
 
 ## Usage
 1. Create a file called *.gitexternals* in the folder where you wish to check out your SVN repository.
-  	$ touch .gitexternals
+		$ touch .gitexternals
   
 2. In the file, add a name for the local folder, and the URL to the SVN repository.
 		symfony = http://svn.symfony-project.com/branches/1.4
