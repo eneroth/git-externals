@@ -18,7 +18,7 @@ The first time the script is run, the repositories will be checked out. Any subs
 		symfony = http://svn.symfony-project.com/branches/1.4
 		Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
   
-3. Repeat step 2 for any folders in your project.
+3. Repeat step 1 and 2 for any folders in your project.
 4. From the main project folder, run the script.
 		$ python3 git-externals.py
 
