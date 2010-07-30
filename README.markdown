@@ -29,7 +29,7 @@ Since you wish check out two repositories there, you specify their local names a
 Afterwards, you save the file and run:
     python3 git-externals.py
 
-Your local project directory structure now looks like this:
+Your local project folder structure now looks like this:
     ProjectDir/
       SomeFile.php
       libs/
