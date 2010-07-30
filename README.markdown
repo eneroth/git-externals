@@ -16,13 +16,13 @@ Your project looks like this:
       SomeFile.php
       libs/
 
-In the empty *libs* folder, you add a *.gitexternals* file. The project now looks like this:
+In the empty **libs** folder, you add a **.gitexternals** file. The project now looks like this:
     ProjectDir/
       SomeFile.php
       libs/
         .gitexternals
 
-Since you wish check out two repositories there, you specify their local names and URLs in the *.gitexternals* file. The contents of *.gitexternals* now look like this:
+Since you wish check out two repositories there, you specify their local names and URLs in the **.gitexternals** file. The contents of **.gitexternals** now look like this:
     symfony = http://svn.symfony-project.com/branches/1.4
     Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
 
@@ -45,9 +45,9 @@ However, when you commit and/or push, it looks like this:
         .gitexternals
         .gitignore
 
-This is because the SVN repositories are automatically added to *.gitignore*. 
+This is because the SVN repositories are automatically added to **.gitignore**. 
 
-When the git project is cloned, all the user has to do is to run _python3 git-externals.py_ again to restore the project to a structure identical to your own.
+When the git project is cloned, all the user has to do is to run **python3 git-externals.py** again to restore the project to a structure identical to your own.
 
 
 ## Usage
