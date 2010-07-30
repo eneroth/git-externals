@@ -87,4 +87,4 @@ Save it and name it "update.ps1" or something sensible like that. Now, sign it o
     Set-ExecutionPolicy Unrestricted
 
 ## Limitations
-The SVN externals are treated as "read only" by the script. At this point, there's no support for commiting them.
+The SVN externals are treated as "read only" by the script. At this point, there's no support for commiting changes to them.
