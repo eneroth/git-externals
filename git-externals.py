@@ -85,7 +85,7 @@ def updateGitIgnore(repos):
 
 def updateRepos(repos):
   for localFolder, remoteFolder in repos.items():
-    if split(localFolder)[1] in sys.argv or not(len(sys.argv)):
+    if split(localFolder)[1] in sys.argv or not(len(sys.argv) - 1):
       if isdir(localFolder):
         os.system('svn cleanup ' + localFolder)
         os.system('svn update ' + localFolder)
