@@ -38,7 +38,7 @@ Your local project folder structure now looks like this:
         symfony/   (SVN-dir)
         Zend/      (SVN-dir)
 
-However, when you **git commit** and/or **git push**, git registers the project like this:
+However, when you run **git commit** and/or **git push**, git registers the project like this:
     ProjectDir/
       SomeFile.php
       libs/
