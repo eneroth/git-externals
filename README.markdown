@@ -51,7 +51,7 @@ When the git project is cloned, all the user has to do is to run **python3 git-e
 
 
 ## Usage
-1. Create a file called _.gitexternals_ in the folder where you wish to check out your SVN repository.
+1. Create a file called **.gitexternals** in the folder where you wish to check out your SVN repository.
 		$ touch .gitexternals
 
 2. In the file, add a name for the local folder, and the URL to the SVN repository.
