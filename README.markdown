@@ -1,12 +1,12 @@
 # Git-externals
 
-Git-externals is designed to integrate SVN repositories in a git project. 
+Git-externals is designed to integrate SVN repositories into a git project with minimal hassle or confusion.
 
 ## The Problem
-Working with git projects that depend on SVN repositories is a hassle. Yet, SVN repositories are more useful than git submodules for numerous reasons, such as being able to check out any subfolder in the repository.
+Working with git projects that depend on SVN repositories can be a hassle. Yet, SVN repositories are more useful than git submodules for numerous reasons, such as being able to check out any subfolder in the repository.
 
 ## The solution
-A script that makes it easy to add and use SVN repositories as a part of a git project. The script reads a "git externals" file and sets up SVN repositories appropriately. The repositories are then added to ".gitignore" in order not to get versioned by git.
+A script that makes it easy to add and use SVN repositories as a part of a git project. The script reads a "git externals" file and sets up SVN repositories appropriately. The repositories are also added to ".gitignore" in order not to get versioned by git.
 
 The first time the script is run, the repositories will be checked out. Any subsequent run will update them to the latest revision.
 
@@ -51,6 +51,8 @@ When the git project is cloned, all the user has to do is to run **python3 git-e
 
 
 ## Usage
+Note: if you intend to use this script, it might be clever to use it as a submodule to your own project.
+
 1. Create a file called **.gitexternals** in the folder where you wish to check out your SVN repository.
 		$ touch .gitexternals
 
