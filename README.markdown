@@ -3,7 +3,7 @@
 Git-externals is designed to integrate SVN repositories into a git project with minimal hassle or confusion.
 
 ## The Problem
-Working with git projects that depend on SVN repositories can be a hassle. Yet, SVN repositories are more useful than git submodules for numerous reasons, such as being able to check out any subfolder in the repository.
+Working with git projects that depend on SVN repositories can be a hassle. Yet, SVN repositories are sometimes more useful than git submodules, such as when you want to be able to check out any subfolder in the repository, rather than the entire repository.
 
 ## The solution
 A script that makes it easy to add and use SVN repositories as a part of a git project. The script reads a "git externals" file and sets up SVN repositories appropriately. The repositories are also added to ".gitignore" in order not to get versioned by git.
