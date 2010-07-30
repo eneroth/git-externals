@@ -68,7 +68,7 @@ Note: if you intend to use this script, it might be clever to use it as a submod
 Any subsequent execution of the script will update all repositories. If you wish to update only specific repositories, give their local folder names as parameters to the script.
 		$ python3 git-externals.py symfony Zend
 
-### Updating git and svn repos with one command
+### Updating git and svn repos using only one command
 #### Unix/Linux/Mac OS X
 Create a file with the following content:
     #!/bin/bash
