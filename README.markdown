@@ -11,7 +11,19 @@ A script that makes it easy to add and use SVN repositories as a part of a git p
 The first time the script is run, the repositories will be checked out. Any subsequent run will update them to the latest revision.
 
 ### Example
-Your local project directory structure may look like this:
+Your project looks like this:
+    ProjectDir/
+      SomeFile.php
+      libs/
+
+In the empty *libs* folder, you add a *.gitexternals* file,since you wish check out two repositories there. In the *.gitexternals* file, you specify the repositories, like so:
+    symfony = http://svn.symfony-project.com/branches/1.4
+    Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
+
+Afterwards, you save the file and run:
+    python3 git-externals.py
+
+Your local project directory structure now looks like this:
     ProjectDir/
       SomeFile.php
       libs/
@@ -20,14 +32,14 @@ Your local project directory structure may look like this:
         symfony/   (SVN-dir)
         Zend/      (SVN-dir)
 
-But the git repository will looke like this:
+However, when you commit and/or push, it looks like this:
     ProjectDir/
       SomeFile.php
       libs/
         .gitexternals
         .gitignore
 
-When the git project is cloned, all the user has to do is to run _python3 git-externals.py_ to restore the directory structure to the above version.
+When the git project is cloned, all the user has to do is to run _python3 git-externals.py_ again to restore the directory structure to the above version.
 
 
 ## Usage
