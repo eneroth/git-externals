@@ -44,6 +44,5 @@ Create a file with the following content:
 Save it and name it "update.ps1" or something sensible like that. Now, sign it or run the following command to enable all scripts (WARNING: read up on PowerShell security before doing this):
     Set-ExecutionPolicy Unrestricted
 
-T
 ## Limitations
 The SVN externals are treated as "read only" by the script. At this point, there's no support for commiting them.
