@@ -10,6 +10,26 @@ A script that makes it easy to add and use SVN repositories as a part of a git p
 
 The first time the script is run, the repositories will be checked out. Any subsequent run will update them to the latest revision.
 
+### Example
+Your local project directory structure may look like this:
+    ProjectDir/
+      SomeFile.php
+      libs/
+        .gitexternals
+        .gitignore
+        symfony/   (SVN-dir)
+        Zend/      (SVN-dir)
+
+But the git repository will looke like this:
+    ProjectDir/
+      SomeFile.php
+      libs/
+        .gitexternals
+        .gitignore
+
+When the git project is cloned, all the user has to do is to run _python3 git-externals.py_ to restore the directory structure to the above version.
+
+
 ## Usage
 1. Create a file called _.gitexternals_ in the folder where you wish to check out your SVN repository.
 		$ touch .gitexternals
