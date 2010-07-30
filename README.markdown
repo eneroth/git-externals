@@ -13,11 +13,11 @@ The first time the script is run, the repositories will be checked out. Any subs
 ## Usage
 1. Create a file called _.gitexternals_ in the folder where you wish to check out your SVN repository.
 		$ touch .gitexternals
-  
+
 2. In the file, add a name for the local folder, and the URL to the SVN repository.
 		symfony = http://svn.symfony-project.com/branches/1.4
 		Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
-  
+
 3. Repeat steps 1 and 2 for any folders in your project.
 4. From the main project folder, run the script.
 		$ python3 git-externals.py
@@ -26,5 +26,24 @@ The first time the script is run, the repositories will be checked out. Any subs
 Any subsequent execution of the script will update all repositories. If you wish to update only specific repositories, give their local folder names as parameters to the script.
 		$ python3 git-externals.py symfony Zend
 
+### Updating git and svn repos with one command
+#### Unix/Linux/Mac OS X
+Create a file with the following content:
+    #!/bin/bash
+    git pull
+    python3 git-externals.py
+
+Save it and name it "update" or something sensible like that. Now, make it executable:
+    chmod u+x update
+
+#### Windows 7 (PowerShell)
+Create a file with the following content:
+    git pull
+    python3 git-externals.py
+
+Save it and name it "update.ps1" or something sensible like that. Now, sign it or run the following command to enable all scripts (WARNING: read up on PowerShell security before doing this):
+    Set-ExecutionPolicy Unrestricted
+
+T
 ## Limitations
 The SVN externals are treated as "read only" by the script. At this point, there's no support for commiting them.
