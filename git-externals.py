@@ -39,6 +39,8 @@ def getRepos(extFiles):
       repos[join(baseDir[0], parts[0].strip())] = parts[1].strip()
   return repos
 
+# Update git ignore files
+# ----------------------------------------------------------------------------------------------
 def updateGitIgnore(repos):
   # Make list of SVN folder names and .gitignore-files
   gitIgnoreFiles = {}
@@ -85,16 +87,26 @@ def updateGitIgnore(repos):
     fileStream.write(toWrite)  
 
 def updateRepos(repos):
+  printString = ''
+  
   for index, val in enumerate(repos.items()):
     localFolder  = val[0]
     remoteFolder = val[1]
+    
     if split(localFolder)[1] in sys.argv or not(len(sys.argv) - 1):
       if isdir(localFolder):
-        print(renderPercentage(index + 1, len(repos.items())) + " Updating repository: " + split(localFolder)[1])
+        printString = renderPercentage(index + 1, len(repos.items())) + " Updating repository: " + split(localFolder)[1]
         retcode = subprocess.check_output(["svn", "update", localFolder])
       else:
-        print(renderPercentage(index + 1, len(repos.items())) +  + " Checking out repository: " + split(localFolder)[1])
+        printString = renderPercentage(index + 1, len(repos.items())) +  + " Checking out repository: " + split(localFolder)[1]
         retcode = subprocess.check_output('svn co ' + remoteFolder + ' ' + localFolder)
+    
+    print(printString + getEscapeChars(printString))
+
+# Formatting functions
+# ----------------------------------------------------------------------------------------------
+def getEscapeChars(inString):
+  return '\b' * len(inString)
 
 def getLeadingFiller(num, maxSize):
   numLength     = len(str(num))
@@ -111,9 +123,9 @@ def renderPercentage(num, max):
   return getLeadingFiller(percentage, 100) + str(percentage) +  "%"
 
 # Default settings
-# ------------------------------------------------------
+# ----------------------------------------------------------------------------------------------
 startDir = abspath(os.getcwd())          # Start in current directory
 extFiles = findGitExternals(startDir)    # Find the locations of the .gitexternals files
 repos    = getRepos(extFiles)            # Get a dictionary of repositories and their local paths
-updateGitIgnore(repos)
-updateRepos(repos)
+updateGitIgnore(repos)                   # Update the .gitignore file appropriately        
+updateRepos(repos)                       # Update/check out the repositories
