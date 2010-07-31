@@ -17,9 +17,10 @@ def findGitExternals(dirToCheck):
 def getRepos(extFiles):
   repos = {}
 
-  for extFile in extFiles:
+  for fileIndex, extFile in enumerate(extFiles):
     baseDir = split(extFile)
     fileStream = open(extFile, 'r')
+    
     for index, line in enumerate(fileStream):
       line = line.strip()
             
@@ -45,7 +46,7 @@ def updateGitIgnore(repos):
   # Make list of SVN folder names and .gitignore-files
   gitIgnoreFiles = {}
   
-  for localFolder in repos.keys():
+  for index, localFolder in enumerate(repos.keys()):
     tmp     = split(localFolder)
     baseDir = tmp[0]
     name    = tmp[1]
@@ -87,22 +88,20 @@ def updateGitIgnore(repos):
     fileStream.write(toWrite)  
 
 def updateRepos(repos):
-  printString = ''
   
   for index, val in enumerate(repos.items()):
     localFolder  = val[0]
     remoteFolder = val[1]
-    
+
     if split(localFolder)[1] in sys.argv or not(len(sys.argv) - 1):
       if isdir(localFolder):
         printString = renderPercentage(index + 1, len(repos.items())) + " Updating repository: " + split(localFolder)[1]
         retcode = subprocess.check_output(["svn", "update", localFolder])
       else:
-        printString = renderPercentage(index + 1, len(repos.items())) +  + " Checking out repository: " + split(localFolder)[1]
-        retcode = subprocess.check_output('svn co ' + remoteFolder + ' ' + localFolder)
+        printString = renderPercentage(index + 1, len(repos.items())) + " Checking out repository: " + split(localFolder)[1]
+        retcode = subprocess.check_output(['svn', 'co', remoteFolder, localFolder])
+      print(printString)
     
-    print(printString + getEscapeChars(printString))
-
 # Formatting functions
 # ----------------------------------------------------------------------------------------------
 def getEscapeChars(inString):
