@@ -1,6 +1,7 @@
 import sys
 import os
 import re
+import subprocess
 from os.path import join, abspath, isdir, dirname, split, exists, isfile
 from os      import listdir, mkdir, linesep
 
@@ -84,14 +85,31 @@ def updateGitIgnore(repos):
     fileStream.write(toWrite)  
 
 def updateRepos(repos):
-  for localFolder, remoteFolder in repos.items():
+  for index, val in enumerate(repos.items()):
+    localFolder  = val[0]
+    remoteFolder = val[1]
     if split(localFolder)[1] in sys.argv or not(len(sys.argv) - 1):
       if isdir(localFolder):
-        os.system('svn cleanup ' + localFolder)
-        os.system('svn update ' + localFolder)
+        print(renderPercentage(index + 1, len(repos.items())) + " Updating repository: " + split(localFolder)[1])
+        retcode = subprocess.check_output(["svn", "update", localFolder])
       else:
-        os.system('svn co ' + remoteFolder + ' ' + localFolder)
-      
+        print(renderPercentage(index + 1, len(repos.items())) +  + " Checking out repository: " + split(localFolder)[1])
+        retcode = subprocess.check_output('svn co ' + remoteFolder + ' ' + localFolder)
+
+def getLeadingFiller(num, maxSize):
+  numLength     = len(str(num))
+  maxSizeLength = len(str(maxSize))
+  return (' ' * (maxSizeLength - numLength))
+
+def renderRepoCounter(num, maxSize):
+  maxSizeString = str(maxSize)
+  numString     = getLeadingFiller(num, maxSize) + str(num)
+  return "(" + numString + "/" + maxSizeString + ")"
+
+def renderPercentage(num, max):
+  percentage = int(num/max*100)
+  return getLeadingFiller(percentage, 100) + str(percentage) +  "%"
+
 # Default settings
 # ------------------------------------------------------
 startDir = abspath(os.getcwd())          # Start in current directory
