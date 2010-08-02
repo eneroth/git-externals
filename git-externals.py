@@ -88,11 +88,11 @@ def updateGitIgnore(repos):
     fileStream.write(toWrite)  
 
 def updateRepos(repos):
+  log = '\nResults of SVN update:\n'
   
   for index, val in enumerate(repos.items()):
     localFolder  = val[0]
     remoteFolder = val[1]
-    log = 'Results of SVN update:\n'
 
     if split(localFolder)[1] in sys.argv or not(len(sys.argv) - 1):
       retCode = ''
@@ -106,7 +106,7 @@ def updateRepos(repos):
       
       log += split(localFolder)[1] + "\n" + retCode
       
-    print(log)
+  print(log)
 # Formatting functions
 # ----------------------------------------------------------------------------------------------
 def getEscapeChars(inString):
