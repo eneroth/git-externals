@@ -92,6 +92,7 @@ def updateRepos(repos):
   for index, val in enumerate(repos.items()):
     localFolder  = val[0]
     remoteFolder = val[1]
+    log = 'Results of SVN update:\n'
 
     if split(localFolder)[1] in sys.argv or not(len(sys.argv) - 1):
       if isdir(localFolder):
@@ -101,7 +102,10 @@ def updateRepos(repos):
         printString = renderPercentage(index + 1, len(repos.items())) + " Checking out repository: " + split(localFolder)[1]
         retcode = subprocess.check_output(['svn', 'co', remoteFolder, localFolder])
       print(printString)
-    
+      
+      log += split(localFolder)[1] + "\n" + retCode
+      
+    print(log)
 # Formatting functions
 # ----------------------------------------------------------------------------------------------
 def getEscapeChars(inString):
