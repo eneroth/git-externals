@@ -95,6 +95,7 @@ def updateRepos(repos):
     log = 'Results of SVN update:\n'
 
     if split(localFolder)[1] in sys.argv or not(len(sys.argv) - 1):
+      retCode = ''
       if isdir(localFolder):
         printString = renderPercentage(index + 1, len(repos.items())) + " Updating repository: " + split(localFolder)[1]
         retcode = subprocess.check_output(["svn", "update", localFolder])
