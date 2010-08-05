@@ -11,6 +11,7 @@ gitIdentifier = "GIT"
 acceptedRepoTypes = [svnIdentifier, gitIdentifier]
 
 # Find .gitexternals files
+##########################
 def findGitExternals(dirToCheck):
   extFiles = []
   for root, dirs, files in os.walk(dirToCheck):
@@ -19,6 +20,8 @@ def findGitExternals(dirToCheck):
   
   return extFiles;
   
+# Retrieve repos from files
+###########################
 def getRepos(extFiles):
   repos = {}
 
@@ -75,7 +78,7 @@ def getRepos(extFiles):
   return repos
 
 # Update git ignore files
-# ----------------------------------------------------------------------------------------------
+#########################
 def updateGitIgnore(repos):
   if svnIdentifier in repos:
     svnRepos = repos[svnIdentifier]
@@ -124,29 +127,8 @@ def updateGitIgnore(repos):
       fileStream = open(gitIgnoreFile, 'w')
       fileStream.write(toWrite)  
 
-def updateSVN(localFolder, remoteFolder):
-  retcode = subprocess.check_output(["svn", "update", localFolder])
-  return retcode
-  
-def checkoutSVN(localFolder, remoteFolder):
-  retcode = subprocess.check_output(['svn', 'co', remoteFolder, localFolder])
-  return retcode
-  
-def updateGIT(localFolder, remoteFolder):
-  remoteName = split(localFolder)[1]
-  retcode = subprocess.check_output(['git', 'pull', '-s', 'subtree', remoteName, 'master'])
-  return retcode
-
-def checkoutGIT(localFolder, remoteFolder):
-  localName = split(localFolder)[1]
-  branchName = localName + "/master"
-  
-  retcode = subprocess.check_output(['git', 'remote', 'add', '-f', localName, remoteFolder])
-  retcode = subprocess.check_output(['git', 'merge', '-s', 'ours', '--no-commit', branchName])
-  retcode = subprocess.check_output(['git', 'read-tree', '--prefix=' + relpath(localFolder), '-u', branchName])
-  retcode = subprocess.check_output(['git', 'commit', '-m', "Merge " + branchName + " as part of our subdirectory"])
-  return retcode
-
+# Update repositories
+#####################
 def updateRepos(repos):
   log = '\nUpdate results:\n'
   for repoGroup, xxxRepos in repos.items():    
@@ -186,6 +168,31 @@ def updateRepos(repos):
     
   print(log)
 
+
+# Update and check out functions
+# ----------------------------------------------------------------------------------------------
+def updateSVN(localFolder, remoteFolder):
+  retcode = subprocess.check_output(["svn", "update", localFolder])
+  return retcode
+  
+def checkoutSVN(localFolder, remoteFolder):
+  retcode = subprocess.check_output(['svn', 'co', remoteFolder, localFolder])
+  return retcode
+  
+def updateGIT(localFolder, remoteFolder):
+  remoteName = split(localFolder)[1]
+  retcode = subprocess.check_output(['git', 'pull', '-s', 'subtree', remoteName, 'master'])
+  return retcode
+
+def checkoutGIT(localFolder, remoteFolder):
+  localName = split(localFolder)[1]
+  branchName = localName + "/master"
+  
+  retcode = subprocess.check_output(['git', 'remote', 'add', '-f', localName, remoteFolder])
+  retcode = subprocess.check_output(['git', 'merge', '-s', 'ours', '--no-commit', branchName])
+  retcode = subprocess.check_output(['git', 'read-tree', '--prefix=' + relpath(localFolder), '-u', branchName])
+  retcode = subprocess.check_output(['git', 'commit', '-m', "Merge " + branchName + " as part of our subdirectory"])
+  return retcode
 
 # Formatting functions
 # ----------------------------------------------------------------------------------------------
