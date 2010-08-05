@@ -125,13 +125,11 @@ def updateGitIgnore(repos):
       fileStream.write(toWrite)  
 
 def updateSVN(localFolder, remoteFolder):
-  retcode = ''
-  # retcode = subprocess.check_output(["svn", "update", localFolder])
+  retcode = subprocess.check_output(["svn", "update", localFolder])
   return retcode
   
 def checkoutSVN(localFolder, remoteFolder):
-  retcode = ''
-  # retcode = subprocess.check_output(['svn', 'co', remoteFolder, localFolder])
+  retcode = subprocess.check_output(['svn', 'co', remoteFolder, localFolder])
   return retcode
   
 def updateGIT(localFolder, remoteFolder):
