@@ -53,6 +53,7 @@ Note: if you intend to use this script, it might be clever to use it as a submod
 		$ touch .gitexternals
 
 2. In the file, add a header, a name for the local folder, and the URL to the SVN repository.
+
     [svn]
     symfony = http://svn.symfony-project.com/branches/1.4
     Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
