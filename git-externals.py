@@ -130,7 +130,8 @@ def updateGitIgnore(repos):
 # Update repositories
 #####################
 def updateRepos(repos):
-  log = '\nUpdate results:\n'
+  log = {}
+  
   for repoGroup, xxxRepos in repos.items():    
     print("\nUpdating " + repoGroup + ":")
     for index, val in enumerate(xxxRepos.items()):
@@ -150,7 +151,7 @@ def updateRepos(repos):
             retCode += str(updateSVN(localFolder, remoteFolder))
             
           elif repoGroup.upper() == gitIdentifier:
-            retCode += str(updateGIT(localFolder, remoteFolder))
+            retCode += updateGIT(localFolder, remoteFolder)
 
         else:
           printString += " Creating: " + split(localFolder)[1]
@@ -162,36 +163,60 @@ def updateRepos(repos):
             
           elif repoGroup.upper() == gitIdentifier:
             retCode += str(checkoutGIT(localFolder, remoteFolder))
-            
+        
+        # Log writing
         if retCode:
-          log += split(localFolder)[1] + "\n" + retCode + "\n"
+          tmpLog = ""
+          retCode = retCode.strip()
+          
+          if retCode.count("\n"):
+            tmpLog += re.sub(r'\n+', '\n\t', "\n" + retCode)
+          else:
+            tmpLog += retCode
+            
+          tmpLog += "\n"
+          
+          log[split(localFolder)[1]] = tmpLog
     
-  print(log)
+  printLog(log)
 
+# Print log
+def printLog(log):
+  longestName = 0;
+  for key in log.keys():
+    if len(key) > longestName:
+      longestName = len(key)
+  
+  print("Results:")
+  for key, val in log.items():
+    repoName = key + ": " + " " * (longestName - len(key))
+    
+    sys.stdout.write(repoName + val)
+      
 
 # Update and check out functions
 # ----------------------------------------------------------------------------------------------
 def updateSVN(localFolder, remoteFolder):
-  retcode = subprocess.check_output(["svn", "update", localFolder])
+  retcode = subprocess.check_output(["svn", "update", localFolder]).decode("utf-8")
   return retcode
   
 def checkoutSVN(localFolder, remoteFolder):
-  retcode = subprocess.check_output(['svn', 'co', remoteFolder, localFolder])
+  retcode = subprocess.check_output(['svn', 'co', remoteFolder, localFolder]).decode("utf-8")
   return retcode
   
 def updateGIT(localFolder, remoteFolder):
   remoteName = split(localFolder)[1]
-  retcode = subprocess.check_output(['git', 'pull', '-s', 'subtree', remoteName, 'master'])
+  retcode = subprocess.check_output(['git', 'pull', '-s', 'subtree', remoteName, 'master']).decode("utf-8")
   return retcode
 
 def checkoutGIT(localFolder, remoteFolder):
   localName = split(localFolder)[1]
   branchName = localName + "/master"
   
-  retcode = subprocess.check_output(['git', 'remote', 'add', '-f', localName, remoteFolder])
-  retcode = subprocess.check_output(['git', 'merge', '-s', 'ours', '--no-commit', branchName])
-  retcode = subprocess.check_output(['git', 'read-tree', '--prefix=' + relpath(localFolder), '-u', branchName])
-  retcode = subprocess.check_output(['git', 'commit', '-m', "Merge " + branchName + " as part of our subdirectory"])
+  retcode = subprocess.check_output(['git', 'remote', 'add', '-f', localName, remoteFolder]).decode("utf-8")
+  retcode = subprocess.check_output(['git', 'merge', '-s', 'ours', '--no-commit', branchName]).decode("utf-8")
+  retcode = subprocess.check_output(['git', 'read-tree', '--prefix=' + relpath(localFolder), '-u', branchName]).decode("utf-8")
+  retcode = subprocess.check_output(['git', 'commit', '-m', "Merge " + branchName + " as part of our subdirectory"]).decode("utf-8")
   return retcode
 
 # Formatting functions
