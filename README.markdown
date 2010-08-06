@@ -49,10 +49,7 @@ When the git project is cloned, all the user has to do is to run **python3 git-e
 ## Usage
 Note: if you intend to use this script, it might be clever to use it as a submodule to your own project.
 
-1. Create a file called **.gitexternals** in the folder where you wish to check out your SVN repository.
-		$ touch .gitexternals
-
-2. In the file, add a header, a name for the local folder, and the URL to the SVN repository.
+1. Create a file called **.gitexternals** in the folder where you wish to check out your SVN repository. In the file, add a header, a name for the local folder, and the URL to the SVN repository.
         [svn]
         symfony = http://svn.symfony-project.com/branches/1.4
         Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
@@ -60,7 +57,7 @@ Note: if you intend to use this script, it might be clever to use it as a submod
         [git]
         git-externals = git://github.com/eneroth/git-externals.git
 
-3. Repeat steps 1 and 2 for any folders in your project.
+3. Repeat step 1 for any folders in your project.
 4. From the main project folder, run the script.
 		$ python3 git-externals.py
 
