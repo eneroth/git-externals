@@ -214,9 +214,9 @@ def checkoutGIT(localFolder, remoteFolder):
   branchName = localName + "/master"
   
   retcode = subprocess.check_output(['git', 'remote', 'add', '-f', localName, remoteFolder]).decode("utf-8")
-  retcode = subprocess.check_output(['git', 'merge', '-s', 'ours', '--no-commit', branchName]).decode("utf-8")
-  retcode = subprocess.check_output(['git', 'read-tree', '--prefix=' + relpath(localFolder), '-u', branchName]).decode("utf-8")
-  retcode = subprocess.check_output(['git', 'commit', '-m', "Merge " + branchName + " as part of our subdirectory"]).decode("utf-8")
+  retcode += subprocess.check_output(['git', 'merge', '-s', 'ours', '--no-commit', branchName]).decode("utf-8")
+  retcode += subprocess.check_output(['git', 'read-tree', '--prefix=' + relpath(localFolder), '-u', branchName]).decode("utf-8")
+  retcode += subprocess.check_output(['git', 'commit', '-m', "Merge " + branchName + " as part of our subdirectory"]).decode("utf-8")
   return retcode
 
 # Formatting functions
