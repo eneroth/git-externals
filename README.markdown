@@ -1,14 +1,6 @@
 # Git-externals
 
-Git-externals is designed to integrate SVN repositories into a git project with minimal hassle or confusion.
-
-## The Problem
-Working with git projects that depend on SVN repositories can be a hassle. Yet, SVN repositories are sometimes more useful than git submodules, such as when you want to be able to check out any subfolder in the repository, rather than the entire repository.
-
-## The solution
-A script that makes it easy to add and use SVN repositories as a part of a git project. The script reads a "git externals" file and sets up SVN repositories appropriately. The repositories are also added to ".gitignore" in order not to get versioned by git.
-
-The first time the script is run, the repositories will be checked out. Any subsequent run will update them to the latest revision.
+Git-externals allows you to quickly and easily add and update external SVN and GIT repositories as subdirectories in a git project. 
 
 ### Example
 Your project looks like this:
@@ -22,9 +14,13 @@ In the empty **libs** folder, you add a **.gitexternals** file. The project now 
       libs/
         .gitexternals
 
-Since you wish check out two repositories there, you specify their local names and URLs in the **.gitexternals** file. The contents of **.gitexternals** now look like this:
+Since you wish check out two SVN repositories and one git repository there, you specify their headers, local names and URLs in the **.gitexternals** file. The contents of **.gitexternals** now look like this:
+    [svn]
     symfony = http://svn.symfony-project.com/branches/1.4
     Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
+    
+    [git]
+    git-externals = git://github.com/eneroth/git-externals.git
 
 Afterwards, you save the file and run:
     python3 git-externals.py
@@ -56,9 +52,13 @@ Note: if you intend to use this script, it might be clever to use it as a submod
 1. Create a file called **.gitexternals** in the folder where you wish to check out your SVN repository.
 		$ touch .gitexternals
 
-2. In the file, add a name for the local folder, and the URL to the SVN repository.
-		symfony = http://svn.symfony-project.com/branches/1.4
-		Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
+2. In the file, add a header, a name for the local folder, and the URL to the SVN repository.
+    [svn]
+    symfony = http://svn.symfony-project.com/branches/1.4
+    Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
+    
+    [git]
+    git-externals = git://github.com/eneroth/git-externals.git
 
 3. Repeat steps 1 and 2 for any folders in your project.
 4. From the main project folder, run the script.
@@ -88,3 +88,6 @@ Save it and name it "update.ps1" or something sensible like that. Now, sign it o
 
 ## Limitations
 The SVN externals are treated as "read only" by the script. At this point, there's no support for commiting changes to them.
+
+# References
+[subtree]: http://www.kernel.org/pub/software/scm/git/docs/howto/using-merge-subtree.html  "Optional Title Here"
