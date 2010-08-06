@@ -2,7 +2,7 @@
 
 Git-externals allows you to quickly and easily add and update external SVN and GIT repositories as subdirectories in a git project. 
 
-### Example
+### Example using SVN repositories
 Your project looks like this:
     ProjectDir/
       SomeFile.php
@@ -14,13 +14,10 @@ In the empty **libs** folder, you add a **.gitexternals** file. The project now 
       libs/
         .gitexternals
 
-Since you wish check out two SVN repositories and one git repository there, you specify their headers, local names and URLs in the **.gitexternals** file. The contents of **.gitexternals** now look like this:
+Since you wish check out two SVN repositories, you specify their headers, local names and URLs in the **.gitexternals** file. The contents of **.gitexternals** now look like this:
     [svn]
     symfony = http://svn.symfony-project.com/branches/1.4
     Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
-    
-    [git]
-    git-externals = git://github.com/eneroth/git-externals.git
 
 Afterwards, you save the file and run:
     python3 git-externals.py
@@ -49,7 +46,7 @@ When the git project is cloned, all the user has to do is to run **python3 git-e
 ## Usage
 Note: if you intend to use this script, it might be clever to use it as a submodule to your own project.
 
-1. Create a file called **.gitexternals** in the folder where you wish to check out your SVN repository. In the file, add a header, a name for the local folder, and the URL to the SVN repository.
+1. Create a file called **.gitexternals** in the folder where you wish to check out your SVN repository. In the file, add a header, a name for the local folder, and the URL to the corresponding repository.
         [svn]
         symfony = http://svn.symfony-project.com/branches/1.4
         Zend    = http://framework.zend.com/svn/framework/standard/branches/release-1.10/library/Zend
