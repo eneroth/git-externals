@@ -81,12 +81,14 @@ def getRepos(extFiles):
 #########################
 def updateGitIgnore(repos):
   if svnIdentifier in repos:
-    svnRepos = repos[svnIdentifier]
+    xxxRepos = {}
+    xxxRepos.update(repos[svnIdentifier])
+    xxxRepos.update(repos[gitIdentifier])
   
     # Make list of SVN folder names and .gitignore-files
     gitIgnoreFiles = {}
     
-    for index, localFolder in enumerate(svnRepos.keys()):
+    for index, localFolder in enumerate(xxxRepos.keys()):
       tmp     = split(localFolder)
       baseDir = tmp[0]
       name    = tmp[1]
