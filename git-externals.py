@@ -133,6 +133,9 @@ def updateGitIgnore(repos):
 def updateRepos(repos):
   log = {}
   
+  # Get list of existing remotes
+  remoteList = subprocess.check_output(['git', 'remote']).decode("utf-8").split()
+  
   for repoGroup, xxxRepos in repos.items():    
     print("\nUpdating " + repoGroup + ":")
     for index, val in enumerate(xxxRepos.items()):
@@ -142,26 +145,41 @@ def updateRepos(repos):
       if split(localFolder)[1] in sys.argv or not(len(sys.argv) - 1):
         retCode = ''
         printString = renderRepoCounter(index + 1, len(xxxRepos.items()))
+        localName = split(localFolder)[1]
       
         # If SVN
         if repoGroup.upper() == svnIdentifier:
-        
           if isdir(localFolder):
-            printString += " Updating: " + split(localFolder)[1]
+            printString += " Updating: " + localName
             print(printString)
             
             retCode += updateSVN(localFolder, remoteFolder)
   
           else:
-            printString += " Creating: " + split(localFolder)[1]
+            printString += " Creating: " + localName
             print(printString)
   
             retCode += checkoutSVN(localFolder, remoteFolder)
         
         # If GIT
         elif repoGroup.upper() == gitIdentifier:
-          
-        
+          if isdir(localFolder):
+            if localName in remoteList:
+              printString += " Updating: " + localName
+              print(printString)
+              
+              retCode += updateGIT(localFolder, remoteFolder)              
+            else:
+              printString += " Reestablishing: " + localName
+              print(printString)
+              
+              retCode += reestablishGIT(localFolder, remoteFolder)
+          else:
+            printString += " Creating: " + localName
+            print(printString)
+  
+            retCode += checkoutGIT(localFolder, remoteFolder)   
+            
         # Log writing
         if retCode:
           tmpLog = ""
@@ -195,10 +213,12 @@ def printLog(log):
 # Update and check out functions
 # ----------------------------------------------------------------------------------------------
 def updateSVN(localFolder, remoteFolder):
+  retcode = ''
   retcode = subprocess.check_output(["svn", "update", localFolder]).decode("utf-8")
   return retcode
   
 def checkoutSVN(localFolder, remoteFolder):
+  retcode = ''
   retcode = subprocess.check_output(['svn', 'co', remoteFolder, localFolder]).decode("utf-8")
   return retcode
   
@@ -206,7 +226,15 @@ def updateGIT(localFolder, remoteFolder):
   remoteName = split(localFolder)[1]
   retcode = subprocess.check_output(['git', 'pull', '-s', 'subtree', remoteName, 'master']).decode("utf-8")
   return retcode
-
+  
+def reestablishGIT(localFolder, remoteFolder):
+  localName = split(localFolder)[1]
+  remoteName = split(localFolder)[1]
+  
+  retcode  = subprocess.check_output(['git', 'remote', 'add', '-f', localName, remoteFolder]).decode("utf-8")
+  retcode += subprocess.check_output(['git', 'pull', '-s', 'subtree', remoteName, 'master']).decode("utf-8")
+  return retcode
+  
 def checkoutGIT(localFolder, remoteFolder):
   localName = split(localFolder)[1]
   branchName = localName + "/master"
