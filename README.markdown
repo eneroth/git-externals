@@ -60,7 +60,7 @@ When the git project is cloned, all the user has to do is to run **python3 git-e
 Any subsequent execution of the script will update all repositories. If you wish to update only specific repositories, give their local folder names as parameters to the script.
 		$ python3 git-externals.py symfony Zend
 
-### Updating git and svn repos using only one command
+### Updating main project and any sub-projects using only one command
 #### Unix/Linux/Mac OS X
 Create a file with the following content:
     #!/bin/bash
@@ -71,6 +71,8 @@ Save it and name it "update" or something sensible like that. Now, make it execu
     chmod u+x update
 
 #### Windows 7 (PowerShell)
+Disclaimer: actually untested, as I haven't had access to a Windows machine to test it on yet. Feedback is extremely welcome.
+
 Create a file with the following content:
     git pull
     python3 git-externals.py
