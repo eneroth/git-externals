@@ -83,7 +83,6 @@ def updateGitIgnore(repos):
   if svnIdentifier in repos:
     xxxRepos = {}
     xxxRepos.update(repos[svnIdentifier])
-    xxxRepos.update(repos[gitIdentifier])
   
     # Make list of SVN folder names and .gitignore-files
     gitIgnoreFiles = {}
@@ -143,28 +142,25 @@ def updateRepos(repos):
       if split(localFolder)[1] in sys.argv or not(len(sys.argv) - 1):
         retCode = ''
         printString = renderRepoCounter(index + 1, len(xxxRepos.items()))
+      
+        # If SVN
+        if repoGroup.upper() == svnIdentifier:
         
-        if isdir(localFolder):
-          printString += " Updating: " + split(localFolder)[1]
-          print(printString)
+          if isdir(localFolder):
+            printString += " Updating: " + split(localFolder)[1]
+            print(printString)
+            
+            retCode += updateSVN(localFolder, remoteFolder)
+  
+          else:
+            printString += " Creating: " + split(localFolder)[1]
+            print(printString)
+  
+            retCode += checkoutSVN(localFolder, remoteFolder)
+        
+        # If GIT
+        elif repoGroup.upper() == gitIdentifier:
           
-          # Update depending on repository type
-          if repoGroup.upper()   == svnIdentifier:
-            retCode += str(updateSVN(localFolder, remoteFolder))
-            
-          elif repoGroup.upper() == gitIdentifier:
-            retCode += updateGIT(localFolder, remoteFolder)
-
-        else:
-          printString += " Creating: " + split(localFolder)[1]
-          print(printString)
-
-          # Update depending on repository type
-          if repoGroup.upper()   == svnIdentifier:
-            retCode += str(checkoutSVN(localFolder, remoteFolder))
-            
-          elif repoGroup.upper() == gitIdentifier:
-            retCode += str(checkoutGIT(localFolder, remoteFolder))
         
         # Log writing
         if retCode:
