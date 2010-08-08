@@ -1,6 +1,6 @@
 # Git-externals
 
-Git-externals allows you to quickly and easily add and update external SVN and GIT repositories as subdirectories in a git project. 
+Git-externals allows you to quickly and easily add and update external SVN and GIT repositories as subdirectories in a git project. For GIT, the [subtree merge strategy] [subtree] is used.
 
 ### Example using SVN repositories
 Your project looks like this:
@@ -44,8 +44,6 @@ When the git project is cloned, all the user has to do is to run **python3 git-e
 
 
 ## Usage
-Note: if you intend to use this script, it might be clever to use it as a submodule to your own project.
-
 1. Create a file called **.gitexternals** in the folder where you wish to check out your SVN repository. In the file, add a header, a name for the local folder, and the URL to the corresponding repository.
         [svn]
         symfony = http://svn.symfony-project.com/branches/1.4
@@ -84,4 +82,4 @@ Save it and name it "update.ps1" or something sensible like that. Now, sign it o
 The SVN externals are treated as "read only" by the script. At this point, there's no support for commiting changes to them.
 
 # References
-[subtree]: http://www.kernel.org/pub/software/scm/git/docs/howto/using-merge-subtree.html  "Optional Title Here"
+[subtree]: http://www.kernel.org/pub/software/scm/git/docs/howto/using-merge-subtree.html  "How to use the subtree merge strategy"
