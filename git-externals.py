@@ -162,18 +162,17 @@ def updateRepos(repos):
             retCode += checkoutSVN(localFolder, remoteFolder)
         
         # If GIT
-        elif repoGroup.upper() == gitIdentifier:
-          if isdir(localFolder):
-            if localName in remoteList:
-              printString += " Updating: " + localName
-              print(printString)
-              
-              retCode += updateGIT(localFolder, remoteFolder)              
-            else:
-              printString += " Reestablishing: " + localName
-              print(printString)
-              
-              retCode += reestablishGIT(localFolder, remoteFolder)
+        elif repoGroup.upper() == gitIdentifier:        
+          if localName in remoteList:
+            printString += " Updating: " + localName
+            print(printString)
+            
+            retCode += updateGIT(localFolder, remoteFolder)
+          elif isdir(localFolder):
+            printString += " Reestablishing: " + localName
+            print(printString)
+            
+            retCode += reestablishGIT(localFolder, remoteFolder)
           else:
             printString += " Creating: " + localName
             print(printString)
