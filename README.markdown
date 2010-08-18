@@ -84,7 +84,4 @@ Create a file with the following content:
 Save it and name it "update.ps1" or something sensible like that. Now, sign it or run the following command to enable all scripts (WARNING: read up on PowerShell security before doing this):
     Set-ExecutionPolicy Unrestricted
 
-## Limitations
-The SVN externals are treated as "read only" by the script. At this point, there's no support for commiting changes to them.
-
 [subtree]: http://www.kernel.org/pub/software/scm/git/docs/howto/using-merge-subtree.html  "How to use the subtree merge strategy"
