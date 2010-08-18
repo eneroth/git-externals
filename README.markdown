@@ -1,6 +1,8 @@
 # Git-externals
 
-Git-externals allows you to quickly and easily add and update external SVN and GIT repositories as subdirectories in a git project. For GIT, the [subtree merge strategy] [subtree] is used.
+Git-externals allows you to quickly and easily add and update external SVN and GIT repositories as subdirectories in a git project. For GIT, the [subtree merge strategy] [subtree] is used. Note: for most people, adding submodules should be preferable. Gut subtree merge is for older releases of GIT. To keep your submodules pointing to the latest commit, simply use:
+    git submodule foreach git pull
+
 
 ### Example using SVN repositories
 Your project looks like this:
